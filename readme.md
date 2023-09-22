@@ -24,7 +24,7 @@ Criar arquivo .env: armazenará as variáveis do ambiente
 ```
 touch .env
 ```
-Instalar pacotes da API
+# Instalar pacotes da API
 ```
 npm i express nodemon dotenv 
 ```
@@ -70,5 +70,11 @@ npm run start
 ```
 Parar o server no terminal com gitBash
 ```
-Ctrl + c 
+Ctrl + C
+```
+
+## Criar estrutura para o projeto
+Criar arquivo app.js na pasta src
+```
+touch src/app.js
 ```
