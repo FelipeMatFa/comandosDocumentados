@@ -11,7 +11,6 @@ router.get('/api', (request, response) => {
 router.post('/api', (request, response) => {
     response.send('Método utilizado para salvar informações!');
     console.log('post');
-    console.log(request)
 });
 
 router.put('/api/:id', (request, response) => {
