@@ -208,7 +208,7 @@ connection.connect( (err) => {
 module.exports = connection;
 ```
 
-## Criar banco de dados
+## Criar banco de dados (MySql Workbench)
 
 * Criar database
 * Dar um 'use' na database criada
@@ -244,3 +244,5 @@ create table users(
 	primary key(id)
 );
 ```
+
+###
