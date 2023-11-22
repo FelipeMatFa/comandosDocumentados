@@ -59,7 +59,33 @@ async function cadastrarAluno(request,response){
     })
 }
 
+
+async function update(request, response) {
+    // Comando Sql
+    const query = 'UPDATE alunos nome ?, dt_nascimento = ?, time_do_coracao = ? WHERE id = ?; ';
+
+    const params = Array(
+        request.body.nome,
+        request.body.dt_nascimento,
+        request.body.time_do_coracao,
+        request.params.id
+    )
+
+    connection.query(query, params, (err, results) => {
+        if(results){
+            response
+                .status(200)
+                .json({
+                    sucess: true,
+                    message: "Sucesso! Aluno atualizado com sucesso!",
+                    data: results
+                })
+        }
+    })
+}
+
 module.exports = {
     listarUsuarios,
-    cadastrarAluno
+    cadastrarAluno,
+    update
 }
