@@ -16,9 +16,14 @@ function deletarDados(request, response) {
     response.send('Método utilizado para deletar informações!');
 }
 
+function listarEspecifico(request, response){
+    response.send('Método utilizado para filtrar informações!');
+}
+
 module.exports = {
     listarDados,
     gravarDados,
     atualizarDados,
-    deletarDados
+    deletarDados,
+    listarEspecifico
 }

@@ -121,8 +121,16 @@ async function listarEspecifico(request, response) {
                 }) 
         } else { 
             response 
-            .status(400) .json({ success: false, message: "Alunos não listado!", mysql: err }) } }) 
-        } 
+            .status(400) 
+            .json(
+                { 
+                    success: false,
+                    message: "Alunos não listado!", 
+                    mysql: err 
+                }) 
+            } 
+    }) 
+} 
 
 module.exports = {
     listarUsuarios,
