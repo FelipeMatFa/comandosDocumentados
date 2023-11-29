@@ -84,8 +84,50 @@ async function update(request, response) {
     })
 }
 
+async function deleteAluno(request, response) { 
+    // Comando sqp 
+    const query = "DELETE FROM alunos WHERE id = ?; "; 
+    const params = Array( request.params.id ); 
+    connection.query(query, params, (err, results) => { 
+        if (results) { 
+            response 
+            .status(200) 
+            .json({ success: true
+                   ,massage: "Aluno removido com sucesso!",
+                    data: results }
+        ) } else { 
+            response 
+            .status(400) 
+            .json({ 
+                success: false, 
+                message: "Alunos não removido!", 
+                mysql: err }
+            ) 
+        } 
+    }) 
+} 
+
+async function listarEspecifico(request, response) { 
+    // Comando sqp 
+    const query = "SELECT * FROM alunos WHERE id = ?; ";
+    const params = Array( request.params.id ); 
+    connection.query(query, params, (err, results) => { 
+        if (results) { 
+            response 
+            .status(200) 
+            .json({ success: true,
+                    massage: "Aluno listado com sucesso!", 
+                    data: results 
+                }) 
+        } else { 
+            response 
+            .status(400) .json({ success: false, message: "Alunos não listado!", mysql: err }) } }) 
+        } 
+
 module.exports = {
     listarUsuarios,
     cadastrarAluno,
-    update
+    update,
+    deleteAluno, 
+    listarEspecifico
 }
