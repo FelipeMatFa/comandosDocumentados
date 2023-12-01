@@ -37,16 +37,30 @@ Criar arquivo .env: armazenará as variáveis do ambiente
 ```
 touch .env
 ```
-* Colocar no arquivo .env 
-    ```
-    PORT = 
 
-    DB_HOST =
-    DB_USER =
-    DB_PASSWORD =
-    DB_DATABASE =
-    ```
-* Arquivo responsável por armazenar as variáveis de ambiente
+Criar arquivo .env.example
+```
+touch .env.example
+```
+* Arquivo responsável por definir as variáveis de ambiente sem os valores
+
+Colar as variáveis no arquivo '.env.example'
+```
+# DEFINIÇÃO DA PORTA DO SERVIDOR EXPRESS
+PORT = 
+
+# VARIÁVEIS DE CONEXÃO COM BANCO
+DB_HOST =
+DB_USER =
+DB_PASSWORD =
+DB_DATABASE =
+
+# Não precisa se o Workbrench tiver a porta 3306
+DB_PORT =
+```
+* Por padrão o pacote mysql2, espera a conexão com banco na porta 3306
+* Se o MySQL não foi instalado na porta 3306, precisamos informar a porta do MYSQL no arquivo '.env' e recuperar no arquivo 'db.js' para acessar o banco
+
 
 Informar arquivos e pastas no .gitignore
 ```
@@ -74,13 +88,54 @@ const port = app.get('port');
 
 // Testar servidor
 app.listen(port, () => console.log(`Running at port ${port}`));
-
 ```
 
-Criar comando para rodar o servidor
+Criar arquivo app.js na pasta src
+```
+touch src/app.js
+```
+* Arquivo responsável por configurar a aplicação
+
+Colar o código de configuração no arquivo 'app.js'
+```
+// Importar pacote do express
+const express = require('express');
+// Instanciar o express na variavel app
+const app = express();
+app.use(express.json());
+
+// importar as rotas para serem executadas na aplicação
+const crudRouter = require('./routes/crudRouter')
+// importar as rotas para serem executadas na aplicação
+const alunosRouter = require('./routes/alunosRouter')
+
+// Importar o pacote dotenv
+const dotenv = require('dotenv').config();
+
+// Habilitar a utilização do crudRouter
+app.use('/api', crudRouter);
+
+// Habilitar a utilização do alunosRouter
+app.use('/api', alunosRouter);
+
+//Setar a porta do servidor, a partir do arquivo .env
+app.set('port', process.env.PORT);
+// Exportar as configurações do app para outros arquivos acessarem
+module.exports = app;
+```
+
+Criar comando para rodar o servidor, no arquivo 'package.json'
 ```
 "start":"nodemon src/server.js"
 ```
+* Substituir o comando "test" dentro da chave scripts pelo comando start acima
+* Este comando é responsável por rodar a API
+
+Após esta configuração o arquivo 'package.json' deve estar conforme a imagem abaixo
+
+<img src="./imagens/package_json.png">
+
+
 Rodar o comando no terminal com gitBash
 ```
 npm run start
